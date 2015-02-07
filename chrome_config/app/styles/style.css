@@ -1,0 +1,4 @@
+/* disable clicking in body */
+body {
+  pointer-events: none;
+}
