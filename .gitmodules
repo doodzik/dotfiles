@@ -1,0 +1,18 @@
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = git://github.com/bling/vim-airline.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/vim-commentary"]
+	path = .vim/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule ".vim/bundle/nimrod.vim"]
+	path = .vim/bundle/nimrod.vim
+	url = git://github.com/zah/nimrod.vim.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic
+[submodule ".vim/bundle/vim-easy-align"]
+	path = .vim/bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
