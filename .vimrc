@@ -52,6 +52,12 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
+" TODO implement
+" nnoremap <silent> <leader>s :set spell!<cr>
+" TODO or with clipboard register
+" set pastetoggle=<F5>
+" set spell
+
 set showcmd     "show incomplete cmds down the bottom
 set showmode    "show current mode down the bottom
 " set showmatch
@@ -73,7 +79,7 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " Fix slow O inserts
-:set timeout timeoutlen=1000 ttimeoutlen=100
+set timeout timeoutlen=1000 ttimeoutlen=100
 
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -120,6 +126,13 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+" EasyAlign mappings
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
