@@ -7,104 +7,106 @@ set nocompatible
 autocmd!
 call pathogen#infect('bundle/{}')
 
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+
+set autoread " If a file is changed outside of vim, automatically reload it without asking
+
 """"""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""
-set number
-set relativenumber
-set cursorline
-set backspace=indent,eol,start
 
-" Im not sure about changing the leader
-"let mapleader=","
-
-set hidden " allow unsaved background buffers and remember marks/undo for them
-set history=10000
-
+"
 " Syntax
+"
 syntax on
 let g:solarized_termcolors=256
 set t_Co=256
 set background=dark
 colorscheme solarized
 filetype plugin indent on
+set showmatch " move the cursor to the previous matching bracket for half a second, and quickly pressing a key will effectively cancel this animation
 
-" TODO: SORT
-
-set nojoinspaces
-
-set incsearch   "find the next match as we type the search
-set hlsearch    "hilight searches by default
-
-set expandtab
-set autoindent
-
-set switchbuf=useopen
-
-" Modelines (comments that set vim options on a per-file basis)
-set modeline
-set modelines=3
-
-set cmdheight=1
-
-"indention
+"
+" Indention
+"
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set expandtab
+set autoindent
 
-" TODO implement
-" nnoremap <silent> <leader>s :set spell!<cr>
-" TODO or with clipboard register
-" set pastetoggle=<F5>
-" set spell
+"
+" Search
+"
+set incsearch            " find the next match as we type the search
+set hlsearch             " hilight searches by default
+set ignorecase smartcase " make searches case-sensitive only if they contain upper-case characters
 
-set showcmd     "show incomplete cmds down the bottom
-set showmode    "show current mode down the bottom
-" set showmatch
+"
+" Lining
+"
+set number
+set relativenumber
+set cursorline
+set scrolloff=3     " vertical/horizontal scroll off settings
+set sidescrolloff=7
+set sidescroll=1
+set wrap            " dont wrap lines
+set linebreak       " wrap lines at convenient points
 
-" If a file is changed outside of vim, automatically reload it without asking
-set autoread
-
-" make searches case-sensitive only if they contain upper-case characters
-set ignorecase smartcase
-
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-
-" Don't make backups at all
-set nobackup
+"
+" History
+"
+set hidden        " allow unsaved background buffers and remember marks/undo for them
+set history=10000
+set modeline      " Modelines (comments that set vim options on a per-file basis)
+set modelines=3
+set nobackup      " Don't make backups at all
 set nowritebackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-" Fix slow O inserts
-set timeout timeoutlen=1000 ttimeoutlen=100
+"
+" Status & Cmd's
+"
+set showcmd      " show incomplete cmds down the bottom
+set showmode     " show current mode down the bottom
+set laststatus=2 " always display status bar
+set cmdheight=1  " Avoiding the 'Hit ENTER to continue' prompts
 
-set wildmode=list:longest   "make cmdline tab completion similar to bash
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+"
+" Altered Format Behaviour of Cmd
+"
+set nojoinspaces
+set formatoptions-=o                        " dont continue comments when pushing o/O
+set backspace=indent,eol,start
+set timeout timeoutlen=1000 ttimeoutlen=100 " Fix slow O inserts
 
-set laststatus=2
+"
+" Command Line Completion
+"
+set wildmode=list:longest   " make cmdline tab completion similar to bash
+set wildmenu                " enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ " stuff to ignore when tab completing
 
+"
+" Buffer
+"
+set switchbuf=useopen
+
+"
+" Folding
+"
 " Turn folding off for real, hopefully
 set foldmethod=manual
 set nofoldenable
-
-set formatoptions-=o "dont continue comments when pushing o/O
-
-"vertical/horizontal scroll off settings
-set scrolloff=3
-set sidescrolloff=7
-set sidescroll=1
-
-set wrap        "dont wrap lines
-set linebreak   "wrap lines at convenient points
-
-" Normally, Vim messes with iskeyword when you open a shell file. This can
-" leak out, polluting other file types even after a 'set ft=' change. This
-" variable prevents the iskeyword change so it can't hurt anyone.
-"let g:sh_noisk=1
 
 """"""""""""""""""""""""""""""""""""
 " Mappings
@@ -126,6 +128,14 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+" This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+nnoremap <silent> <leader>s :set spell!<cr>
+
+" Im not sure about changing the leader
+" let mapleader=","
 
 " EasyAlign mappings
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
@@ -248,7 +258,7 @@ endfunction
 
 nnoremap <leader>f :call SelectaFile(".")<cr>
 
-"Fuzzy select
+" Fuzzy select
 function! SelectaIdentifier()
   " Yank the word under the cursor into the z register
   normal "zyiw
@@ -262,3 +272,7 @@ nnoremap <c-g> :call SelectaIdentifier()<cr>
 " TODO: RUNNING/INIT/OPEN TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Abbreviations 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+ab teh the
