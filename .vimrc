@@ -18,6 +18,8 @@ set t_ti= t_te=
 
 set autoread " If a file is changed outside of vim, automatically reload it without asking
 
+set vb t_vb= " disable bell
+
 """"""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""
@@ -88,6 +90,8 @@ set nojoinspaces
 set formatoptions-=o                        " dont continue comments when pushing o/O
 set backspace=indent,eol,start
 set timeout timeoutlen=1000 ttimeoutlen=100 " Fix slow O inserts
+" TODO: create only specific chars
+" set digraph " Enables input of special characters by a combination of two characters. Example: Type 'a', erase it by typing CTRL-H - and then type ':'
 
 "
 " Command Line Completion
@@ -273,6 +277,6 @@ nnoremap <c-g> :call SelectaIdentifier()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Abbreviations 
+" Abbreviations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ab teh the
