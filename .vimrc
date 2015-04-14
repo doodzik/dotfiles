@@ -115,16 +115,15 @@ set nofoldenable
 """"""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""
-" Disable arrow keys
+" Disable arrow keys & hjkl
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-" uncomment when every letter in .vimrc is in muscle memory
-" noremap h <NOP>
-" noremap j <NOP>
-" noremap k <NOP>
-" noremap l <NOP>
+noremap h <NOP>
+noremap j <NOP>
+noremap k <NOP>
+noremap l <NOP>
 imap <esc> <NOP>
 
 " Move around splits with <c-hjkl>
