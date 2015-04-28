@@ -57,7 +57,7 @@ set ignorecase smartcase " make searches case-sensitive only if they contain upp
 set number
 set relativenumber
 set cursorline
-set scrolloff=3     " vertical/horizontal scroll off settings
+set scrolloff=9999     " vertical/horizontal scroll off settings to be in the middle
 set sidescrolloff=7
 set sidescroll=1
 set wrap            " dont wrap lines
@@ -120,10 +120,10 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-noremap h <NOP>
-noremap j <NOP>
-noremap k <NOP>
-noremap l <NOP>
+" noremap h <NOP>
+" noremap j <NOP>
+" noremap k <NOP>
+" noremap l <NOP>
 imap <esc> <NOP>
 
 " Move around splits with <c-hjkl>
@@ -133,7 +133,7 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " This unsets the 'last search pattern' register by hitting return
-nnoremap <CR> :noh<CR><CR>
+" nnoremap <CR> :noh<CR><CR>
 
 nnoremap <silent> <leader>s :set spell!<cr>
 
@@ -173,7 +173,7 @@ augroup vimrcEx
   autocmd! CmdwinEnter * :unmap <cr>
   autocmd! CmdwinLeave * :call MapCR()
 
-  autocmd FileType c,cpp,java,php,ruby,python,nim autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd FileType c,cpp,java,php,ruby,python,js,jsx autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup END
 
 " mark everthing longer than 80 red
