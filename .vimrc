@@ -137,8 +137,11 @@ nnoremap <c-l> <c-w>l
 
 nnoremap <silent> <leader>s :set spell!<cr>
 
-" Im not sure about changing the leader
-" let mapleader=","
+" changing the leader
+let mapleader = "\<Space>"
+
+" stop enteritg ex mode
+nnoremap Q <NOP>
 
 " EasyAlign mappings
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
