@@ -51,8 +51,11 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="~/.rbenv/shims:$HOME/.nvm/v0.10.26/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
+export PATH="~/.rbenv/shims:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
 # export MANPATH="/usr/local/man:$MANPATH"
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
 # init rbenv
 eval "$(rbenv init -)"
@@ -81,3 +84,6 @@ eval "$(rbenv init -)"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export NVM_DIR="/Users/dudzik/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
