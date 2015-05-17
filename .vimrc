@@ -20,6 +20,8 @@ set autoread " If a file is changed outside of vim, automatically reload it with
 
 set vb t_vb= " disable bell
 
+set clipboard=unnamed " use clipboard as default register
+
 """"""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""
