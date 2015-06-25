@@ -248,7 +248,7 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
 endfunction
 
 function! SelectaFile(path)
-  call SelectaCommand("find " . a:path . "/* -type f -not -path './node_modules/*' -not -path './lib/*' -not -path './bower_components/*'", "", ":e")
+  call SelectaCommand("find " . a:path . "/* -type f -not -path './node_modules/*' -not -path './lib/*' -not -path './public/assets/*'", "", ":e")
 endfunction
 
 nnoremap <leader>f :call SelectaFile(".")<cr>
