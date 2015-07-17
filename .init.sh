@@ -16,23 +16,28 @@ brew install nvm
 
 git clone https://github.com/doodzik/dotfiles.git ~/
 
+. $(brew --prefix nvm)/nvm.sh
+nvm install iojs
+
 while [[ $# > 0 ]]
 do
-key="$1"
+  key="$1"
 
-case $key in
+  case $key in
     -g|--gui)
-    brew install caskroom/cask/brew-cask
-    brew cask install google-chrome
-    brew cask install filezilla
-    brew cask install skype
-    shift # past argument
-    ;;
-    *)
-            # unknown option
-    ;;
-esac
-shift # past argument or value
+      brew install caskroom/cask/brew-cask
+      brew cask install mailbox
+      brew cask install google-chrome
+      brew cask install filezilla
+      brew cask install skype
+      shift # past argument
+      ;;
+    -d|--development)
+      npm adduser doodzik
+      shift # past argument
+      ;;
+  esac
+  shift # past argument or value
 done
 
 # login into zsh
