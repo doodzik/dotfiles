@@ -12,10 +12,28 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # install dotfiles
 brew install vim
 brew install git
+brew install nvm
+
 git clone https://github.com/doodzik/dotfiles.git ~/
 
-# install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.25.4/install.sh | bash
+while [[ $# > 0 ]]
+do
+key="$1"
+
+case $key in
+    -g|--gui)
+    brew install caskroom/cask/brew-cask
+    brew cask install google-chrome
+    brew cask install filezilla
+    brew cask install skype
+    shift # past argument
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
 
 # login into zsh
 exec zsh -l
