@@ -30,10 +30,19 @@ do
       brew cask install google-chrome
       brew cask install filezilla
       brew cask install skype
+      open -a "Google Chrome" --args --make-default-browser
       shift # past argument
       ;;
     -d|--development)
       npm adduser doodzik
+       ssh-keygen -t rsa -b 4096 -C "frederik.dudzik@gmail.com" 
+        eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa 
+        pbcopy < ~/.ssh/id_rsa.pub
+        echo 'copied key to clipboard. opening github settings.'
+        echo 'Press [Enter] key when added key to github'
+        sleep 2
+        open https://github.com/settings/ssh
+        read -p ''
       shift # past argument
       ;;
   esac
