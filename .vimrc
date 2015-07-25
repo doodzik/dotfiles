@@ -159,6 +159,10 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" nextval bindings
+nmap <silent> <unique> + <Plug>nextvalInc
+nmap <silent> <unique> - <Plug>nextvalDec
+
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""
