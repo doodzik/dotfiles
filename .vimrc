@@ -146,8 +146,8 @@ nnoremap <silent> <leader>s :set spell!<cr>
 
 nnoremap <leader>r :source $MYVIMRC<cr>
 
-" remove all end white spaces
-nnoremap <leader>w  :%s/\s\+$//e<cr>:noh<cr>
+" remove all end white spaces and write
+nnoremap <leader>w  :%s/\s\+$//e<cr>:noh<cr> :w<cr>
 
 " stop enteritg ex mode
 nnoremap Q <NOP>
