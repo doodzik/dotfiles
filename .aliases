@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+alias v=vim
+# alias vim=nvim
+
+# npm aliases
+alias n=npm
+alias ni=npm install
+nis () { npm install "$@" --save; }
+nid () { npm install "$@" --save-dev; }
+nig () { npm install "$@" -g; }
+alias nt=npm test
+nr () {
+   if [ "$2" ]
+   then
+     npm run "$1" -- "${@:2}";
+   else
+     npm run "$1";
+   fi
+}

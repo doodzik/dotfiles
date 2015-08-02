@@ -54,6 +54,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="~/.rbenv/shims:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+source $HOME/.aliases
+
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
