@@ -3,6 +3,8 @@
 alias v=vim
 # alias vim=nvim
 
+alias o=open
+
 # npm aliases
 alias n=npm
 alias ni=npm install

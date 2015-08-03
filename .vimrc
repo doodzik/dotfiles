@@ -20,12 +20,13 @@ set autoread " If a file is changed outside of vim, automatically reload it with
 
 set vb t_vb= " disable bell
 
-set clipboard=unnamed " use clipboard as default register
+set clipboard=unnamed " use clipboard as the default register
 
 " changing the leader
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
+nmap <SPACE> <leader>
 
-" remove js checker because it doesn't support with es6 and es7 syntax
+" remove js checker because it doesn't support es6 and es7 syntax
 let g:syntastic_javascript_checkers = ['']
 """"""""""""""""""""""""""""""""""""
 " Basic Config
@@ -139,6 +140,9 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" prevent esc from going back
+inoremap <c-c> <c-c>`^
+
 " This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
@@ -147,7 +151,7 @@ nnoremap <silent> <leader>s :set spell!<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
 
 " remove all end white spaces and write
-nnoremap <leader>w  :%s/\s\+$//e<cr>:noh<cr> :w<cr>
+nnoremap <leader>w  mz :%s/\s\+$//e<cr> :noh<cr> :w<cr> `z
 
 " stop enteritg ex mode
 nnoremap Q <NOP>
