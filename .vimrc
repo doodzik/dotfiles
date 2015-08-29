@@ -107,7 +107,7 @@ set timeout timeoutlen=1000 ttimeoutlen=100 " Fix slow O inserts
 set wildmode=list:longest   " make cmdline tab completion similar to bash
 set wildmenu                " enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ " stuff to ignore when tab completing
-
+set complete+=k             " add dictionary scanning
 "
 " Buffer
 "
