@@ -7,11 +7,11 @@ alias o=open
 
 # npm aliases
 alias n=npm
-alias ni=npm install
+alias ni="npm install"
 nis () { npm install "$@" --save; }
 nid () { npm install "$@" --save-dev; }
 nig () { npm install "$@" -g; }
-alias nt=npm test
+alias nt="npm test"
 nr () {
    if [ "$2" ]
    then
