@@ -150,6 +150,7 @@ nnoremap <CR> :noh<CR><CR>
 
 nnoremap <silent> <leader>s :set spell!<cr>
 
+" reload vimrc file
 nnoremap <leader>r :source $MYVIMRC<cr>
 
 " remove all end white spaces and write
@@ -157,6 +158,9 @@ nnoremap <leader>w  mz :%s/\s\+$//e<cr> :noh<cr> :w<cr> `z
 
 " compress multiple lines to one
 nnoremap <leader>J :%s/^\_s\+\n/\r <cr>
+
+" open new tab and open file
+nnoremap <leader>t :tabnew <cr>
 
 " stop enteritg ex mode
 nnoremap Q <NOP>
