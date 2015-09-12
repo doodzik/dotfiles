@@ -157,10 +157,16 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 nnoremap <leader>w  mz :%s/\s\+$//e<cr> :noh<cr> :w<cr> `z
 
 " compress multiple lines to one
-nnoremap <leader>J :%s/^\_s\+\n/\r <cr>
+nnoremap <leader>J :%s/^\_s\+\n/\r <cr> :noh<cr>
 
 " open new tab and open file
 nnoremap <leader>t :tabnew <cr>
+
+" prev tab
+nnoremap <leader>h :tabprevious <cr>
+
+" next tab
+nnoremap <leader>l :tabnext <cr>
 
 " stop enteritg ex mode
 nnoremap Q <NOP>
