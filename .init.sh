@@ -17,7 +17,7 @@ brew install nvm
 git clone https://github.com/doodzik/dotfiles.git ~/
 
 . $(brew --prefix nvm)/nvm.sh
-nvm install iojs
+nvm install 4
 
 while [[ $# > 0 ]]
 do
@@ -26,10 +26,15 @@ do
   case $key in
     -g|--gui)
       brew install caskroom/cask/brew-cask
-      brew cask install mailbox
       brew cask install google-chrome
+      brew cask install google-drive
+      brew cask install mailbox
       brew cask install filezilla
       brew cask install skype
+      brew cask install flux
+      brew cask install slack
+      brew cask install appcleaner
+      brew cask install anki
       open -a "Google Chrome" --args --make-default-browser
       shift # past argument
       ;;
