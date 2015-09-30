@@ -1,23 +1,16 @@
 #!/usr/bin/env bash
 
-xcode-select --install
-read -p 'Press [Enter] key when you installed xcode'
-
 # install homebrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-# install ohmyzsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+command -v brew >/dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # install dotfiles
 brew install vim
 brew install git
 brew install nvm
 
-git clone https://github.com/doodzik/dotfiles.git ~/
-
 . $(brew --prefix nvm)/nvm.sh
-nvm install 4
+nvm use 4
+nvm alias default 4
 
 while [[ $# > 0 ]]
 do
@@ -40,7 +33,13 @@ do
       ;;
     -d|--development)
       brew install mongodb
-      npm adduser doodzik
+      # echo in red
+      tput setaf 1
+      echo "setting git config;; change if you arn't frederik"
+      # stop echoing in red
+      tput sgr0
+      git config --global user.name "Frederik Dudzik"
+      git config --global user.email frederik.dudzik@gmail.com 
       ssh-keygen -t rsa -b 4096 -C "frederik.dudzik@gmail.com" 
       eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa 
       pbcopy < ~/.ssh/id_rsa.pub
@@ -49,11 +48,18 @@ do
       sleep 2
       open https://github.com/settings/ssh
       read -p ''
+      echo "npm"
+      npm adduser doodzik
       shift # past argument
       ;;
   esac
   shift # past argument or value
 done
+
+git submodule update --init --recursive
+
+# install ohmyzsh
+command -v zsh >/dev/null 2>&1 || sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # login into zsh
 exec zsh -l
