@@ -39,6 +39,7 @@ do
       shift # past argument
       ;;
     -d|--development)
+      brew install mongodb
       npm adduser doodzik
       ssh-keygen -t rsa -b 4096 -C "frederik.dudzik@gmail.com" 
       eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa 
