@@ -12,6 +12,9 @@ brew install nvm
 nvm use 4
 nvm alias default 4
 
+# no blurry font
+defaults write com.apple.Terminal AppleFontSmoothing -int 0
+
 while [[ $# > 0 ]]
 do
   key="$1"
@@ -32,6 +35,7 @@ do
       shift # past argument
       ;;
     -d|--development)
+      open .dudzik.terminal
       brew install mongodb
       # echo in red
       tput setaf 1
