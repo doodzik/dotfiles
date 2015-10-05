@@ -136,6 +136,15 @@ noremap <Right> <NOP>
 " noremap l <NOP>
 imap <esc> <NOP>
 
+" use ZZ instead, fewer keystrokes
+cnoreabbrev wq <NOP>
+cnoreabbrev x  <NOP>
+
+" block visual mode
+nmap v     <NOP>
+nmap V     <NOP>
+nmap <c-v> <NOP>
+
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -173,8 +182,8 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " nextval bindings
-nmap <silent> <unique> + <Plug>nextvalInc
-nmap <silent> <unique> - <Plug>nextvalDec
+" nmap <silent> <unique> + <Plug>nextvalInc
+" nmap <silent> <unique> - <Plug>nextvalDec
 
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
