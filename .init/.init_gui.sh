@@ -9,5 +9,10 @@ brew cask install slack
 brew cask install appcleaner
 brew cask install anki
 brew install youtube-dl
-open -a "Google Chrome" --args --make-default-browser
 
+defaults write com.apple.finder CreateDesktop -bool FALSE
+
+ln -s Library/Mobile\ Documents/com~apple~CloudDocs
+mv com\~apple\~CloudDocs iCloud
+
+open -a "Google Chrome" --args --make-default-browser
