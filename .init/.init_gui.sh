@@ -2,6 +2,7 @@ brew install caskroom/cask/brew-cask
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install mailbox
+brew cask install vlc
 brew cask install filezilla
 brew cask install skype
 brew cask install flux
