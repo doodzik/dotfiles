@@ -4,6 +4,12 @@
 " Use Vim not Vi settings, has to be set at the beginning because of side effects
 set nocompatible
 
+set shell=/bin/zsh
+set guifont=Menlo:h14
+set encoding=utf-8
+scriptencoding utf-8
+let g:indentLine_char = '｜'
+
 autocmd!
 call pathogen#infect('bundle/{}')
 
@@ -15,6 +21,10 @@ let g:sh_noisk=1
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
+
+set ttyfast
+set timeoutlen=500 " mapping delay
+set ttimeoutlen=0  " key code delay
 
 set autoread " If a file is changed outside of vim, automatically reload it without asking
 
@@ -28,6 +38,7 @@ nmap <SPACE> <leader>
 
 " remove js checker because it doesn't support es6 and es7 syntax
 let g:syntastic_javascript_checkers = ['']
+
 """"""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""
@@ -58,6 +69,7 @@ set autoindent
 set incsearch            " find the next match as we type the search
 set hlsearch             " hilight searches by default
 set ignorecase smartcase " make searches case-sensitive only if they contain upper-case characters
+set gdefault             " make g the default subsitution flag
 
 "
 " Lining
@@ -74,11 +86,15 @@ set linebreak       " wrap lines at convenient points
 "
 " History
 "
+" TODO unsure about hidden and my workflow
+" maybe Im going to throw it out
 set hidden        " allow unsaved background buffers and remember marks/undo for them
 set history=10000
 set modeline      " Modelines (comments that set vim options on a per-file basis)
 set modelines=3
 set nobackup      " Don't make backups at all
+set noundofile    " lets you undo from before file was opend
+set noswapfile    " because I am writing on all changes it is disabled
 set nowritebackup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -145,22 +161,32 @@ nmap v     <NOP>
 nmap V     <NOP>
 nmap <c-v> <NOP>
 
+" TODO considering this
+" nnoremap ' `
+" nnoremap ` '
+
 " Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
+
+" Recover from accidental Ctrl-U/W
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 
 " prevent esc from going back
 inoremap <c-c> <c-c>`^
+
+inoremap <c-d> <c-c> u
 
 " This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
 nnoremap <silent> <leader>s :set spell!<cr>
 
-" reload vimrc file
-nnoremap <leader>r :source $MYVIMRC<cr>
+" open vimrc in split view
+nnoremap <leader>r <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " remove all end white spaces and write
 nnoremap <leader>w  mz :%s/\s\+$//e<cr> :noh<cr> :w<cr> `z
@@ -171,8 +197,18 @@ nnoremap <leader>J :%s/^\_s\+\n/\r <cr> :noh<cr>
 " open new tab and open file
 nnoremap <leader>t :tabnew <cr>
 
+" quickly fix spelling error
+nnoremap <leader>f 1z=
+
 " stop enteritg ex mode
-nnoremap Q <NOP>
+" and map it to quit window
+nnoremap Q :q <cr>
+
+" commit all and push
+nnoremap <leader>p :!git add --all && git commit && git push origin master<CR><CR>
+
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>h <C-w>s<C-w>j
 
 " EasyAlign mappings
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
@@ -188,13 +224,20 @@ nmap ga <Plug>(EasyAlign)
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""
+
+" reload vimrc if written
+autocmd bufwritepost .vimrc source $MYVIMRC
+
+" autosaves buffer if changed occured
+autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
+
 " THIS REMOVES ALL TRAILING WHITESPACES ON WRITEBUFFER/SAVE
-fun! <SID>StripTrailingWhitespaces()
+function! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
   %s/\s\+$//e
   call cursor(l, c)
-endfun
+endfunction
 
 augroup vimrcEx
   " Clear all autocmds in the group
@@ -257,6 +300,7 @@ function! OpenChangedFiles()
   endfor
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
+map <leader>gst :call OpenChangedFiles() <cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FuzzySearch/ Selecta Mappings
@@ -277,7 +321,7 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
 endfunction
 
 function! SelectaFile(path)
-  call SelectaCommand("find " . a:path . "/* -type f -not -path './node_modules/*' -not -path './lib/*' -not -path './public/assets/*'", "", ":e")
+  call SelectaCommand("find " . a:path . "/* -type f -not -path '~/Library/*' -not -path './node_modules/*' -not -path './lib/*' -not -path './public/assets/*'", "", ":e")
 endfunction
 
 nnoremap <leader>f :call SelectaFile(".")<cr>
