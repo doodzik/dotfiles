@@ -11,7 +11,7 @@ scriptencoding utf-8
 let g:indentLine_char = '｜'
 
 autocmd!
-call pathogen#infect('bundle/{}')
+call pathogen#infect('bundle/{}', 'writing/{}', 'src/{}')
 
 " Normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
@@ -23,7 +23,7 @@ let g:sh_noisk=1
 set t_ti= t_te=
 
 set ttyfast
-set timeoutlen=500 " mapping delay
+set timeoutlen=300 " mapping delay
 set ttimeoutlen=0  " key code delay
 
 set autoread " If a file is changed outside of vim, automatically reload it without asking
@@ -87,9 +87,6 @@ set linebreak       " wrap lines at convenient points
 "
 " History
 "
-" TODO unsure about hidden and my workflow
-" maybe Im going to throw it out
-set hidden        " allow unsaved background buffers and remember marks/undo for them
 set history=10000
 set modeline      " Modelines (comments that set vim options on a per-file basis)
 set modelines=3
@@ -114,9 +111,6 @@ set cmdheight=1  " Avoiding the 'Hit ENTER to continue' prompts
 set nojoinspaces
 set formatoptions-=o                        " dont continue comments when pushing o/O
 set backspace=indent,eol,start
-set timeout timeoutlen=1000 ttimeoutlen=100 " Fix slow O inserts
-" TODO: create only specific chars
-" set digraph " Enables input of special characters by a combination of two characters. Example: Type 'a', erase it by typing CTRL-H - and then type ':'
 
 "
 " Command Line Completion
@@ -203,25 +197,19 @@ nnoremap <leader>f 1z=
 
 " stop enteritg ex mode
 " and map it to quit window
-nnoremap Q :q <cr>
-
-" commit all and push
-nnoremap <leader>p :!git add --all && git commit && git push origin master<CR><CR>
+nnoremap <silent> Q :q <cr>
 
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>h <C-w>s<C-w>j
-
-" EasyAlign mappings
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
 " nextval bindings
-" nmap <silent> <unique> + <Plug>nextvalInc
-" nmap <silent> <unique> - <Plug>nextvalDec
+nmap <silent> + <Plug>nextvalInc
+nmap <silent> - <Plug>nextvalDec
 
+"
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""
@@ -243,7 +231,7 @@ augroup vimrcEx
 
   " autosaves buffer if changed occured
   autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
-
+  
   autocmd FileType text setlocal textwidth=78
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
@@ -257,6 +245,46 @@ augroup vimrcEx
   autocmd! CmdwinLeave * :call MapCR()
 
   autocmd FileType c,cpp,java,php,ruby,python,javascript,javascript.jsx autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""
+" setup for markdown editing
+""""""""""""""""""""""""""""""""""""""""""""
+let g:limelight_conceal_ctermfg=8
+
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+
+augroup markdown
+  autocmd!
+  autocmd! User GoyoEnter Limelight
+  autocmd  User GoyoEnter call <SID>goyo_enter()
+  autocmd! User GoyoLeave Limelight!
+  autocmd  User GoyoLeave nested source ~/.vimrc
+  autocmd  User GoyoLeave call <SID>goyo_leave()
+
+  autocmd FileType markdown,mkd call pencil#init()
+                            \ | call lexical#init()
+                            \ | call litecorrect#init()
+                            \ | :Goyo
+                            " \ | call textobj#sentence#init()
+                            " \ | call textobj#quote#init()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -323,6 +351,8 @@ function! SelectaCommand(choice_command, selecta_args, vim_command)
 endfunction
 
 function! SelectaFile(path)
+  " TODO ignore paths with .gitignore file
+  " TODO check if locate is faster
   call SelectaCommand("find " . a:path . "/* -type f -not -path '~/Library/*' -not -path './node_modules/*' -not -path './lib/*' -not -path './public/assets/*'", "", ":e")
 endfunction
 
@@ -337,8 +367,3 @@ function! SelectaIdentifier()
   call SelectaCommand("find * -type f", "-s " . @z, ":e")
 endfunction
 nnoremap <c-g> :call SelectaIdentifier()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Abbreviations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-ab teh the
