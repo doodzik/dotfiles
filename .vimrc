@@ -39,6 +39,7 @@ nmap <SPACE> <leader>
 " remove js checker because it doesn't support es6 and es7 syntax
 let g:syntastic_javascript_checkers = ['']
 
+set lazyredraw " redraw only when we need to.
 """"""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""
@@ -225,12 +226,6 @@ nmap ga <Plug>(EasyAlign)
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""
 
-" reload vimrc if written
-autocmd bufwritepost .vimrc source $MYVIMRC
-
-" autosaves buffer if changed occured
-autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
-
 " THIS REMOVES ALL TRAILING WHITESPACES ON WRITEBUFFER/SAVE
 function! <SID>StripTrailingWhitespaces()
   let l = line(".")
@@ -242,6 +237,13 @@ endfunction
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
+
+  " reload vimrc if written
+  autocmd bufwritepost .vimrc source $MYVIMRC
+
+  " autosaves buffer if changed occured
+  autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
+
   autocmd FileType text setlocal textwidth=78
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
