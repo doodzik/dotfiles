@@ -178,8 +178,6 @@ inoremap <c-d> <c-c> u
 " This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
-nnoremap <silent> <leader>s :set spell!<cr>
-
 " open vimrc in split view
 nnoremap <leader>r <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
@@ -199,8 +197,9 @@ nnoremap <leader>f 1z=
 " and map it to quit window
 nnoremap <silent> Q :q <cr>
 
+" open splits
 nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>h <C-w>s<C-w>j
+nnoremap <leader>s <C-w>s<C-w>j
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
