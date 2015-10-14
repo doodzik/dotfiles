@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-./.init_basic.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/Doodzik/dotfiles/master/.init/.init_basic.sh)
+
 ./.init_dev.sh
 ./.init_gui.sh
 
