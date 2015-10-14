@@ -7,6 +7,7 @@ tput sgr0
 git config --global user.name "Frederik Dudzik"
 git config --global user.email frederik.dudzik@gmail.com 
 git config --global push.default simple
+git config --global core.editor vim
 git config --global credential.helper osxkeychain
 ssh-keygen -t rsa -b 4096 -C "frederik.dudzik@gmail.com" 
 eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa 

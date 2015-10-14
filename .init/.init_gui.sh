@@ -16,4 +16,4 @@ defaults write com.apple.finder CreateDesktop -bool FALSE
 ln -s Library/Mobile\ Documents/com~apple~CloudDocs
 mv com\~apple\~CloudDocs iCloud
 
-open -a "Google Chrome" --args --make-default-browser
+# TODO print each service to log into
