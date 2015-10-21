@@ -191,7 +191,7 @@ nnoremap <leader>J :%s/^\_s\+\n/\r <cr> :noh<cr>
 nnoremap <leader>t :tabnew <cr>
 
 " quickly fix spelling error
-nnoremap <leader>f 1z=
+nnoremap <leader>z 1z=
 
 " stop enteritg ex mode
 " and map it to quit window
@@ -328,8 +328,7 @@ function! OpenChangedFiles()
     exec "sp " . filename
   endfor
 endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
-map <leader>gst :call OpenChangedFiles() <cr>
+command! GSt :call OpenChangedFiles()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FuzzySearch/ Selecta Mappings

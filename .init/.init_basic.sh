@@ -10,6 +10,7 @@ brew install nvm
 brew install selecta
 
 # setup node
+mkdir ~/.nvm
 . $(brew --prefix nvm)/nvm.sh
 nvm use 4
 nvm alias default 4
