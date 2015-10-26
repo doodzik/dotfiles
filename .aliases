@@ -8,6 +8,7 @@ alias o=open
 # npm aliases
 alias n=npm
 alias ni="npm install"
+alias ns="npm start"
 nis () { npm install "$@" --save; }
 nid () { npm install "$@" --save-dev; }
 nig () { npm install "$@" -g; }
