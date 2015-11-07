@@ -12,8 +12,8 @@ brew install selecta
 # setup node
 mkdir ~/.nvm
 . $(brew --prefix nvm)/nvm.sh
-nvm use 4
-nvm alias default 4
+nvm use 5
+nvm alias default 5
 
 # no blurry font
 defaults write com.apple.Terminal AppleFontSmoothing -int 0
