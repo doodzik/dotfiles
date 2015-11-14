@@ -37,7 +37,7 @@ set clipboard=unnamed " use clipboard as the default register
 nmap <SPACE> <leader>
 
 " remove js checker because it doesn't support es6 and es7 syntax
-let g:syntastic_javascript_checkers = ['']
+" let g:syntastic_javascript_checkers = ['']
 
 set lazyredraw " redraw only when we need to.
 """"""""""""""""""""""""""""""""""""
@@ -176,7 +176,7 @@ inoremap <c-c> <c-c>`^
 inoremap <c-d> <c-c> u
 
 " This unsets the 'last search pattern' register by hitting return
-nnoremap <CR> :noh<CR><CR>
+nnoremap <silent> <CR> :noh<CR><CR>
 
 " open vimrc in split view
 nnoremap <leader>r <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -230,7 +230,7 @@ augroup vimrcEx
 
   " autosaves buffer if changed occured
   autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
-  
+
   autocmd FileType text setlocal textwidth=78
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
