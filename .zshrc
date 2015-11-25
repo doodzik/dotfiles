@@ -59,6 +59,8 @@ source $HOME/.aliases
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+./.api_keys
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
