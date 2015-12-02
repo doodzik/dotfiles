@@ -54,6 +54,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
 source $HOME/.aliases
 
 export NVM_DIR=~/.nvm
@@ -88,3 +90,6 @@ source $(brew --prefix nvm)/nvm.sh
 
 export NVM_DIR=$HOME/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# added by travis gem
+[ -f /Users/dudzik/.travis/travis.sh ] && source /Users/dudzik/.travis/travis.sh
