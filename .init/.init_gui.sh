@@ -1,5 +1,4 @@
 brew install youtube-dl
-brew install caskroom/cask/brew-cask
 brew cask install vlc
 brew cask install skype
 brew cask install flux
