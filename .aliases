@@ -4,20 +4,3 @@ alias v=vim
 # alias vim=nvim
 
 alias o=open
-
-# npm aliases
-alias n=npm
-alias ni="npm install"
-alias ns="npm start"
-nis () { npm install "$@" --save; }
-nid () { npm install "$@" --save-dev; }
-nig () { npm install "$@" -g; }
-alias nt="npm test"
-nr () {
-   if [ "$2" ]
-   then
-     npm run "$1" -- "${@:2}";
-   else
-     npm run "$1";
-   fi
-}

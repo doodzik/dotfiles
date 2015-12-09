@@ -12,6 +12,9 @@ brew install git
 brew install nvm
 brew install selecta
 
+brew tap doodzik/tap
+brew install npm-scripts
+
 brew cask install vagrant
 brew cask install virtualbox
 
