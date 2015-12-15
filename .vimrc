@@ -11,7 +11,7 @@ scriptencoding utf-8
 let g:indentLine_char = '｜'
 
 autocmd!
-call pathogen#infect('bundle/{}', 'writing/{}', 'src/{}')
+call pathogen#infect('bundle/{}', 'src/{}')
 
 " Normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
@@ -244,46 +244,6 @@ augroup vimrcEx
   autocmd! CmdwinLeave * :call MapCR()
 
   autocmd FileType c,cpp,java,php,ruby,python,javascript,javascript.jsx autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""
-" setup for markdown editing
-""""""""""""""""""""""""""""""""""""""""""""
-let g:limelight_conceal_ctermfg=8
-
-function! s:goyo_enter()
-  let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
-
-function! s:goyo_leave()
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    if b:quitting_bang
-      qa!
-    else
-      qa
-    endif
-  endif
-endfunction
-
-
-augroup markdown
-  autocmd!
-  autocmd! User GoyoEnter Limelight
-  autocmd  User GoyoEnter call <SID>goyo_enter()
-  autocmd! User GoyoLeave Limelight!
-  autocmd  User GoyoLeave nested source ~/.vimrc
-  autocmd  User GoyoLeave call <SID>goyo_leave()
-
-  autocmd FileType markdown,mkd call pencil#init()
-                            \ | call lexical#init()
-                            \ | call litecorrect#init()
-                            \ | :Goyo
-                            " \ | call textobj#sentence#init()
-                            " \ | call textobj#quote#init()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

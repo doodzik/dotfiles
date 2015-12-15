@@ -28,27 +28,3 @@
 [submodule ".vim/bundle/vim-repeat"]
 	path = .vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat
-[submodule ".vim/bundle/vim-pencil"]
-	path = .vim/writing/vim-pencil
-	url = https://github.com/reedes/vim-pencil
-[submodule ".vim/bundle/vim-lexical"]
-	path = .vim/writing/vim-lexical
-	url = https://github.com/reedes/vim-lexical
-[submodule ".vim/bundle/vim-litecorrect"]
-	path = .vim/writing/vim-litecorrect
-	url = https://github.com/reedes/vim-litecorrect
-[submodule ".vim/bundle/vim-textobj-sentence"]
-	path = .vim/writing/vim-textobj-sentence
-	url = https://github.com/reedes/vim-textobj-sentence
-[submodule ".vim/bundle/vim-textobj-quote"]
-	path = .vim/writing/vim-textobj-quote
-	url = https://github.com/reedes/vim-textobj-quote
-[submodule ".vim/bundle/vim-wordy"]
-	path = .vim/writing/vim-wordy
-	url = https://github.com/reedes/vim-wordy
-[submodule ".vim/bundle/goyo.vim"]
-	path = .vim/writing/goyo.vim
-	url = https://github.com/junegunn/goyo.vim
-[submodule ".vim/bundle/limelight.vim"]
-	path = .vim/writing/limelight.vim
-	url = https://github.com/junegunn/limelight.vim
