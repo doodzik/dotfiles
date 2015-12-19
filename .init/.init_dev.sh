@@ -1,5 +1,3 @@
-brew install mongodb
-
 # echo in red
 tput setaf 1
 echo "setting git config;; change if you arn't frederik"

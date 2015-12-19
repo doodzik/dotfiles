@@ -3,17 +3,18 @@
 # install homebrew
 command -v brew >/dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-#install cask
-brew install caskroom/cask/brew-cask
-
-# install dotfiles
-brew install vim
-brew install git
-brew install nvm
-brew install selecta
-
 brew tap doodzik/tap
-brew install npm-scripts
+
+cmds=(
+  caskroom/cask/brew-cask
+  vim
+  git
+  nvm
+  selecta
+  npm-scripts
+)
+
+brew install ${cmds[@]}
 
 brew cask install vagrant
 brew cask install virtualbox
