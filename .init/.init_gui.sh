@@ -7,13 +7,11 @@ guis=(
   skype
   flux
   appcleaner
-  anki
 )
 
 brew cask install ${guis[@]}
 
 echo "log into:\n"
-echo "anki\n"
 echo "skype\n"
 
 # disable desktop
