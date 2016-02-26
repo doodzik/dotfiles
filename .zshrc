@@ -63,8 +63,6 @@ source $(brew --prefix nvm)/nvm.sh
 
 source n.sh
 
-source ./.api_keys
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
