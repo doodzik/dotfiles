@@ -49,6 +49,10 @@ plugins=(git brew)
 
 source $ZSH/oh-my-zsh.sh
 
+# so you can use bash-complete
+autoload bashcompinit
+bashcompinit
+
 # User configuration
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:{$PATH}"
