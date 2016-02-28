@@ -66,6 +66,8 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
 source n.sh
+source rmapp
+
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
