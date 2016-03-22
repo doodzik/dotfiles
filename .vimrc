@@ -48,12 +48,12 @@ set lazyredraw " redraw only when we need to.
 "
 " Syntax
 "
-syntax on
-let g:solarized_termcolors=256
+syntax off
+" let g:solarized_termcolors=256
 set t_Co=256
 set background=dark
-colorscheme solarized
-filetype plugin indent on
+" colorscheme solarized
+" fletype plugin indent on
 set showmatch " move the cursor to the previous matching bracket for half a second, and quickly pressing a key will effectively cancel this animation
 
 "
@@ -76,8 +76,8 @@ set gdefault             " make g the default subsitution flag
 "
 " Lining
 "
-set number
-set relativenumber
+" set number
+" set relativenumber
 set cursorline
 set scrolloff=9999     " vertical/horizontal scroll off settings to be in the middle
 set sidescrolloff=7
