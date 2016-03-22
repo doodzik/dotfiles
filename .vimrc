@@ -36,6 +36,7 @@ set clipboard=unnamed " use clipboard as the default register
 " let mapleader = "\<Space>"
 nmap <SPACE> <leader>
 nmap <BS> <leader>
+nmap <Del> <leader>
 
 " remove js checker because it doesn't support es6 and es7 syntax
 " let g:syntastic_javascript_checkers = ['']
