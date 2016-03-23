@@ -11,7 +11,7 @@ scriptencoding utf-8
 let g:indentLine_char = '｜'
 
 autocmd!
-call pathogen#infect('bundle/{}', 'src/{}')
+call pathogen#infect('bundle/{}')
 
 " Normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
@@ -50,11 +50,9 @@ set lazyredraw " redraw only when we need to.
 " Syntax
 "
 syntax off
-" let g:solarized_termcolors=256
 set t_Co=256
 set background=dark
-" colorscheme solarized
-" fletype plugin indent on
+filetype plugin indent on
 set showmatch " move the cursor to the previous matching bracket for half a second, and quickly pressing a key will effectively cancel this animation
 
 "
@@ -119,7 +117,11 @@ set backspace=indent,eol,start
 "
 set wildmode=list:longest   " make cmdline tab completion similar to bash
 set wildmenu                " enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ " stuff to ignore when tab completing
+" stuff to ignore when tab completing
+set wildignore+=*.a,*.obj,*.o
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+set wildignore+=.DS_Store,.git,.hg,.svn
+set wildignore+=*~,*.swp,*.tmp
 set complete+=k             " add dictionary scanning
 set omnifunc=syntaxcomplete#Complete
 
@@ -210,18 +212,18 @@ nmap ga <Plug>(EasyAlign)
 nmap <silent> + <Plug>nextvalInc
 nmap <silent> - <Plug>nextvalDec
 
+" Indent if we're at the beginning of a line. Else, do completion.
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
+
+map <leader>n :call RenameFile()<cr>
+
+nnoremap <leader>f :call SelectaFile(".")<cr>
+
 "
 """""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """""""""""""""""""""""""""""""""""""""
-
-" THIS REMOVES ALL TRAILING WHITESPACES ON WRITEBUFFER/SAVE
-function! <SID>StripTrailingWhitespaces()
-  let l = line(".")
-  let c = col(".")
-  %s/\s\+$//e
-  call cursor(l, c)
-endfunction
 
 augroup vimrcEx
   " Clear all autocmds in the group
@@ -248,82 +250,3 @@ augroup vimrcEx
   autocmd FileType c,cpp,java,php,ruby,python,javascript,javascript.jsx autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-map <leader>n :call RenameFile()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OpenChangedFiles COMMAND
-" Open a split for each dirty file in git
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
-  let filenames = split(status, "\n")
-  exec "edit " . filenames[0]
-  for filename in filenames[1:]
-    exec "sp " . filename
-  endfor
-endfunction
-command! GSt :call OpenChangedFiles()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FuzzySearch/ Selecta Mappings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run a given vim command on the results of fuzzy selecting from a given shell
-" command. See usage below.
-function! SelectaCommand(choice_command, selecta_args, vim_command)
-  try
-    let selection = system(a:choice_command . " | selecta " . a:selecta_args)
-  catch /Vim:Interrupt/
-    " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
-    redraw!
-    return
-  endtry
-  redraw!
-  exec a:vim_command . " " . selection
-endfunction
-
-function! SelectaFile(path)
-  " TODO ignore paths with .gitignore file
-  " TODO check if locate is faster
-  call SelectaCommand("find " . a:path . "/* -type f -not -path '~/Library/*' -not -path './node_modules/*' -not -path './lib/*' -not -path './public/assets/*'", "", ":e")
-endfunction
-
-nnoremap <leader>f :call SelectaFile(".")<cr>
-
-" Fuzzy select
-function! SelectaIdentifier()
-  " Yank the word under the cursor into the z register
-  normal "zyiw
-  " Fuzzy match files in the current directory, starting with the word under
-  " the cursor
-  call SelectaCommand("find * -type f", "-s " . @z, ":e")
-endfunction
-nnoremap <c-g> :call SelectaIdentifier()<cr>
