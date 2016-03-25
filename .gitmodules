@@ -1,3 +1,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = https://github.com/doodzik/prezto
+[submodule ".vim"]
+	path = .vim
+	url = https://github.com/doodzik/vimrc
