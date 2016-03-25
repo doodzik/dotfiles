@@ -229,6 +229,10 @@ augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
 
+  " CursorLineOnlyInActiveWindow
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+
   " reload vimrc if written
   autocmd bufwritepost .vimrc source $MYVIMRC
 
