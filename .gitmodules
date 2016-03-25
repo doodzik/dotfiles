@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/lexima.vim"]
 	path = .vim/bundle/lexima.vim
 	url = https://github.com/cohama/lexima.vim
+[submodule ".zprezto"]
+	path = .zprezto
+	url = https://github.com/doodzik/prezto
