@@ -1,1 +1,2 @@
 shell "/usr/local/bin/zsh"
+startup_message off
