@@ -10,4 +10,4 @@
 * run basic/gui/dev script in CLI 
 
 ## runs the installation script
-bash <(curl -fsSL https://raw.githubusercontent.com/Doodzik/dotfiles/master/.install)
+bash <(curl -fsSL https://raw.githubusercontent.com/Doodzik/dotfiles/master/.install) 2> error.log
