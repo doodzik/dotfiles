@@ -1,0 +1,270 @@
+#!/usr/bin/env bash
+
+set -x
+
+sudo -s
+
+if [ $? -ne 0 ]; then
+    echo "please run the script again with a correct password"
+    exit 1
+fi
+
+if [ -z "$1" ]; then
+    echo "please provide an email address as an argument"
+    exit 1
+fi
+
+EMAIL="$1"
+
+# ==============================================
+# homebrew
+# ==============================================
+
+command -v brew >/dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew tap doodzik/tap https://github.com/doodzik/tap
+# for screen
+brew tap homebrew/dupes 
+brew tap caskroom/cask
+
+cmds=(
+  zsh
+  bash_join
+  git
+  ghi
+  vim
+  selecta
+  find_with_gitignore
+  tidy-html5
+  m-cli
+  screen
+  nvm
+  npm-scripts
+  rmapp
+  youtube-dl
+)
+
+# dep for ghi
+gem install pygments.rb
+
+brew install ${cmds[@]}
+
+brew cask install vagrant
+brew cask install virtualbox
+
+
+# ==============================================
+# github
+# ==============================================
+
+git config --global user.name "Frederik Dudzik"
+git config --global user.email "$EMAIL"
+git config --global push.default simple
+git config --global core.editor vim
+git config --global credential.helper osxkeychain
+git config --global core.excludesfile ~/.gitignore_osx
+ssh-keygen -t rsa -b 4096 -C "frederik@dudzik.co"
+eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+pbcopy < ~/.ssh/id_rsa.pub
+
+# echo in red
+tput setaf 1
+echo 'copied key to clipboard. opening github settings.'
+# stop echoing in red
+tput sgr0
+
+echo 'Press [Enter] key when added key to github'
+sleep 2
+open https://github.com/settings/ssh
+read -p ''
+echo "ghi"
+ghi config --auth doodzik
+
+# setup repo for dotfiles
+git init
+git remote add origin https://github.com/doodzik/dotfiles.git
+git fetch
+git checkout -t origin/master
+git submodule update --init --recursive --remote
+
+cd .zprezto
+git submodule update --init --recursive --remote
+
+cd
+
+# ==============================================
+# zsh
+# ==============================================
+
+touch ~/.zshrc
+/usr/local/bin/zsh
+rm ~/.zshrc
+
+# Create a new Zsh configuration by copying the Zsh configuration files provided:
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
+
+# set brew zsh as default shell
+echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/zsh
+
+# ==============================================
+# nvm
+# ==============================================
+
+# setup node
+mkdir ~/.nvm
+. $(brew --prefix nvm)/nvm.sh
+nvm install 6
+nvm use 6
+nvm alias default 6
+
+# ==============================================
+# Xcode
+# ==============================================
+echo "Setting Xcode preferences"
+
+# Always use spaces for indenting
+defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
+
+# Show tab bar
+defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
+
+# =============================================
+# GUI
+# =============================================
+
+echo "installing gui..."
+
+guis=(
+  vlc
+  flux
+  anki
+  iterm2
+  macid
+)
+
+brew cask install ${guis[@]}
+
+echo 'setup icloud && opening apps'
+echo 'Press [Enter] if done'
+sleep 2
+open -a System\ Preferences
+open -a Flux
+open -a Anki
+open -a macid
+read -p ''
+
+# =============================================
+# Safari
+# =============================================
+
+echo "setting up safari..."
+
+osascript -e 'tell application "Safari" to activate
+                open location "https://www.ublock.org"
+                open location "https://github.com/guyht/vimari/releases/latest"
+                open location "http://www.bumblebeesystems.com/wastenotime/"
+
+                open location "https://ankiweb.net/shared/info/3448800906"
+                open location "https://ankiweb.net/shared/info/1600138415"
+                open location "https://ankiweb.net/shared/info/315734179"
+              end tell'
+
+
+echo "set ublock eu cookie warning"
+echo "import waste no time config"
+echo "press [enter] to continue"
+read -p ''
+
+# enable safari dev mode
+defaults write com.apple.Safari WebKitDeveloperExtras -bool true
+
+osascript -e 'tell application "Safari" to activate
+                delay 3
+                tell application "System Events" to tell process "Safari"
+                  keystroke "," using command down
+
+                  tell group 1 of group 1 of window 1
+                      tell pop up button 6
+                        click
+                        click menu item "After one week" of menu 1
+                      end tell
+                  end tell
+              end tell'
+
+
+# ==============================================
+# system
+# ==============================================
+# monitor changes to the settings
+# sudo opensnoop -n cfprefsd-int-int
+
+# disable gateskeeper
+m gatekeeper disable
+
+# multitouch/trackpad
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture -int 2;
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1;
+defaults write -g com.apple.trackpad.scaling 3
+
+# keyboard
+defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S"; }'
+defaults write InitialKeyRepeat -int 15
+defaults write KeyRepeat -int 2
+
+# capslock to cntr
+# ~/Library/Preferences/ByHost/.GlobalPreferences
+mappingplist=com.apple.keyboard.modifiermapping.1452-585-0
+defaults -currentHost write -g $mappingplist '({
+    HIDKeyboardModifierMappingDst = 2;
+    HIDKeyboardModifierMappingSrc = 0;
+  })'
+
+# notification settings
+defaults write com.apple.notificationcenterui dndEnd   -int 420
+defaults write com.apple.notificationcenterui dndStart -int 1320
+
+# menu bar
+defaults read com.apple.menuextra.battery ShowPercent -bool YES
+
+# users
+defaults write com.apple.loginwindow GuestEnabled -bool NO
+defaults write com.apple.loginwindow SHOWFULLNAME -int 1
+
+# dock
+m dock autohide YES
+defaults write com.apple.dock mineffect -string 'scale'
+defaults write com.apple.dock persistent-apps '()'
+
+# finder
+m finder showhiddenfiles YES
+m finder showextensions YES
+
+# Don't offer new disks for backup
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+# disable desktop
+defaults write com.apple.finder CreateDesktop -bool FALSE
+
+# change screenshot folder
+defaults write com.apple.screencapture location ~/Downloads
+
+# symlink iCloud Folder to ~/
+ln -s Library/Mobile\ Documents/com~apple~CloudDocs
+mv com\~apple\~CloudDocs iCloud
+
+# symbolic hotkeys
+# Select the previous input source - Command, Option, Space
+defaults write ~/Library/Preferences/com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 60 "{ enabled = 1; value = { parameters = ( 32, 49, 262144 ); type = standard; }; }"
+
+# no blurry font
+defaults write com.apple.Terminal AppleFontSmoothing -int 0
+
+# ==============================================
+# restart
+# ==============================================
+
+m restart

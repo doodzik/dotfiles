@@ -6,6 +6,8 @@
 !.gitignore
 !.gitignore_osx
 !.gitmodules
+!.init
+!.config
 !.hammerspoon
 !.zprezto
 !.screenrc
