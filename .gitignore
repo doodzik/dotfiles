@@ -6,6 +6,7 @@
 !.gitignore
 !.gitignore_osx
 !.gitmodules
-!.dudzik.terminal
+!.hammerspoon
 !.zprezto
 !.screenrc
+!.dudzik.terminal
