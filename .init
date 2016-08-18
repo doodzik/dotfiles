@@ -169,11 +169,18 @@ osascript -e 'tell application "Safari" to activate
                 open location "https://ankiweb.net/shared/info/3448800906"
                 open location "https://ankiweb.net/shared/info/1600138415"
                 open location "https://ankiweb.net/shared/info/315734179"
+
+                open location "http://www.remotemouse.net"
+                open location "http://www.onenote.com"
+                open location "http://www.wacom.com/en-us/support/product-support/drivers"
               end tell'
 
 
 echo "set ublock eu cookie warning"
 echo "import waste no time config"
+echo "wacom desktop login and reset settings"
+echo "disable wacom desktop autostart. In the menu bar settings."
+echo "onenote login"
 echo "press [enter] to continue"
 read -p ''
 
