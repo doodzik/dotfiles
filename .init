@@ -222,8 +222,8 @@ defaults -currentHost write -g $mappingplist '({
   })'
 
 # notification settings
-defaults write com.apple.notificationcenterui dndEnd   -int 420
-defaults write com.apple.notificationcenterui dndStart -int 1320
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+killall NotificationCenter
 
 # menu bar
 defaults read com.apple.menuextra.battery ShowPercent -bool YES
