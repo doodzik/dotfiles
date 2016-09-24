@@ -91,6 +91,10 @@ git submodule update --init --recursive --remote
 
 cd
 
+cd .vim 
+./install
+cd
+
 # ==============================================
 # zsh
 # ==============================================
