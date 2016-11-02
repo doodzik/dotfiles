@@ -179,6 +179,7 @@ osascript -e 'tell application "Safari" to activate
                 open location "http://www.remotemouse.net"
                 open location "http://www.onenote.com"
                 open location "http://www.wacom.com/en-us/support/product-support/drivers"
+                open location "http://magnet.crowdcafe.com/#download"
               end tell'
 
 
