@@ -2,8 +2,6 @@
 
 set -x
 
-sudo -s
-
 if [ $? -ne 0 ]; then
     echo "please run the script again with a correct password"
     exit 1
@@ -28,30 +26,35 @@ brew tap homebrew/dupes
 brew tap caskroom/cask
 
 cmds=(
-  zsh
   bash_join
+  find_with_gitignore
   git
   git-lfs
   ghi
-  vim
-  selecta
-  find_with_gitignore
-  tidy-html5
   m-cli
-  screen
   nvm
-  yarn
   npm-scripts
   rmapp
+  screen
+  tidy-html5
+  vim
+  yarn
   youtube-dl
+  zsh
 )
+
+
+# install ruby
+brew install rbenv 
+LATEST_RUBY=$(rbenv install -l | sed -n '/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}[[:space:]]*$/ h;${g;p;}')
+rbenv install $LATEST_RUBY 
+rbenv rehash
+rbenv global $LATEST_RUBY 
 
 # dep for ghi
 gem install pygments.rb
 
-brew install ${cmds[@]}
-
-brew cask install otto
+brew install ${cmds[@]} || { echo 'brew failed' ; exit 1; }
 
 # ==============================================
 # github
@@ -65,7 +68,7 @@ git config --global credential.helper osxkeychain
 git config --global core.excludesfile ~/.gitignore_osx
 ssh-keygen -t rsa -b 4096 -C "frederik@dudzik.co"
 eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
-pbcopy < ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub | pbcopy
 
 # echo in red
 tput setaf 1
@@ -97,7 +100,7 @@ cd .vim
 cd
 
 # ==============================================
-# zsh
+# Zsh
 # ==============================================
 
 touch ~/.zshrc
@@ -159,6 +162,11 @@ open -a System\ Preferences
 open -a Flux
 open -a Anki
 open -a macid
+
+osascript -e '
+   on run
+        do shell script "echo setup assistive access for the terminal"
+   end run'
 read -p ''
 
 # =============================================
@@ -167,27 +175,22 @@ read -p ''
 
 echo "setting up safari..."
 
-osascript -e 'tell application "Safari" to activate
-                open location "https://www.ublock.org"
-                open location "https://github.com/guyht/vimari/releases/latest"
-                open location "http://www.bumblebeesystems.com/wastenotime/"
+open "https://www.ublock.org"
+open "https://github.com/guyht/vimari/releases/latest"
+open "http://www.bumblebeesystems.com/wastenotime/"
 
-                open location "https://ankiweb.net/shared/info/3448800906"
-                open location "https://ankiweb.net/shared/info/1600138415"
-                open location "https://ankiweb.net/shared/info/315734179"
+open "https://ankiweb.net/shared/info/3448800906"
+open "https://ankiweb.net/shared/info/1600138415"
+open "https://ankiweb.net/shared/info/315734179"
 
-                open location "http://www.remotemouse.net"
-                open location "http://www.onenote.com"
-                open location "http://www.wacom.com/en-us/support/product-support/drivers"
-                open location "http://magnet.crowdcafe.com/#download"
-              end tell'
-
+open "http://www.remotemouse.net"
+open "http://www.wacom.com/en-us/support/product-support/drivers"
+open "http://magnet.crowdcafe.com/#download"
 
 echo "set ublock eu cookie warning"
 echo "import waste no time config"
 echo "wacom desktop login and reset settings"
 echo "disable wacom desktop autostart. In the menu bar settings."
-echo "onenote login"
 echo "press [enter] to continue"
 read -p ''
 
@@ -279,4 +282,6 @@ defaults write com.apple.Terminal AppleFontSmoothing -int 0
 # restart
 # ==============================================
 
+echo 'Press [Enter] to restart the computer'
+read -p ''
 m restart
