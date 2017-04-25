@@ -156,6 +156,8 @@ guis=(
 brew cask install ${guis[@]}
 
 echo 'setup icloud && opening apps'
+echo 'trackpad tap to click & look up with 3 fingers'
+echo 'spaces: disable Automatically rearrange Spaces based on most recent use'
 echo 'Press [Enter] if done'
 sleep 2
 open -a System\ Preferences
@@ -238,9 +240,9 @@ defaults -currentHost write -g $mappingplist '({
     HIDKeyboardModifierMappingSrc = 0;
   })'
 
-# notification settings
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
-killall NotificationCenter
+# notification settings - apple killed that config
+# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
+# killall NotificationCenter
 
 # menu bar
 defaults read com.apple.menuextra.battery ShowPercent -bool YES
