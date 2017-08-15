@@ -37,7 +37,6 @@ cmds=(
   rmapp
   screen
   tidy-html5
-  vim
   yarn
   youtube-dl
   zsh
@@ -50,6 +49,8 @@ LATEST_RUBY=$(rbenv install -l | sed -n '/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\
 rbenv install $LATEST_RUBY 
 rbenv rehash
 rbenv global $LATEST_RUBY 
+
+brew install vim
 
 # dep for ghi
 gem install pygments.rb
