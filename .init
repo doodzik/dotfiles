@@ -31,6 +31,7 @@ cmds=(
   git
   git-lfs
   ghi
+  googler
   m-cli
   nvm
   npm-scripts
