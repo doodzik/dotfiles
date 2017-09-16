@@ -55,6 +55,7 @@ brew install vim
 
 # dep for ghi
 gem install pygments.rb
+gem install bundler
 
 brew install ${cmds[@]} || { echo 'brew failed' ; exit 1; }
 
@@ -153,6 +154,7 @@ guis=(
   anki
   iterm2
   macid
+  fastlane
 )
 
 brew cask install ${guis[@]}
