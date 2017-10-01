@@ -1,0 +1,24 @@
+[alias]
+  prune = fetch --prune
+
+  unstage = reset -q HEAD --
+  discard = checkout --
+  undo = !git reset --hard HEAD && git clean -d -f
+  save = commit -m
+  amend = commit --amend
+  prestage = diff
+  precommit = diff --cached
+
+  untrack = rm -r --cached
+  patch = add --patch
+  stashes = stash list
+
+  stash-all = stash save --include-untracked
+  tuck = stash save
+  untuck = stash pop "stash@{0}"
+
+  branches = branch -a
+  tags = tag
+  remotes = remote -v
+
+

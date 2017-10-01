@@ -6,9 +6,11 @@
 !.gitignore
 !.gitignore_osx
 !.gitmodules
+!.gitaliases
 !.init
 !.config
 !.hammerspoon
 !.zprezto
 !.screenrc
 !.dudzik.terminal
+
