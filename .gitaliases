@@ -1,6 +1,8 @@
 [alias]
   git = !git  
 
+  c = commit
+
   prune = fetch --prune
 
   unstage = reset -q HEAD --
