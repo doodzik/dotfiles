@@ -41,6 +41,8 @@ cmds=(
   yarn
   youtube-dl
   zsh
+  fzf
+  the_silver_searcher
 )
 
 
