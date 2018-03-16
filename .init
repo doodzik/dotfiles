@@ -153,10 +153,8 @@ echo "installing gui..."
 
 guis=(
   vlc
-  flux
   anki
   iterm2
-  macid
   fastlane
 )
 
@@ -168,9 +166,7 @@ echo 'spaces: disable Automatically rearrange Spaces based on most recent use'
 echo 'Press [Enter] if done'
 sleep 2
 open -a System\ Preferences
-open -a Flux
 open -a Anki
-open -a macid
 
 osascript -e '
    on run
