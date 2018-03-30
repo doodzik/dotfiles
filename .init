@@ -99,6 +99,8 @@ git submodule update --init --recursive --remote
 cd .zprezto
 git submodule update --init --recursive --remote
 
+echo "GitHub: When you are asked for your username and password. Enter your username, then in the password prompt paste your Personal Access Token from your password manager."
+
 cd
 
 cd .vim 
