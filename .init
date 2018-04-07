@@ -20,14 +20,12 @@ EMAIL="$1"
 
 command -v brew >/dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew tap doodzik/tap https://github.com/doodzik/tap
+brew tap doodzik/tap
 # for screen
 brew tap homebrew/dupes 
 brew tap caskroom/cask
 
 cmds=(
-  bash_join
-  find_with_gitignore
   git
   git-lfs
   ghi
@@ -35,7 +33,7 @@ cmds=(
   m-cli
   nvm
   npm-scripts
-  rmapp
+  note
   screen
   tidy-html5
   yarn
