@@ -8,6 +8,7 @@
 !.gitmodules
 !.gitaliases
 !.init
+!.init_zsh
 !.config
 !.hammerspoon
 !.zprezto
