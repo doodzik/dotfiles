@@ -9,6 +9,8 @@ fi
 
 ALL=true
 
+SKIP_RUBY=false
+
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -22,6 +24,10 @@ case $key in
     --gui)
     GUI=true
     ALL=false
+    shift # past argument
+    ;;
+    --skip-ruby)
+    SKIP_RUBY=true
     shift # past argument
     ;;
     *)    # unknown option
@@ -47,7 +53,7 @@ if [ "$ALL" == true ] ; then
 
   brew tap doodzik/tap
   # for screen
-  brew tap homebrew/dupes 
+  brew tap homebrew/dupes
   brew tap caskroom/cask
 
   cmds=(
@@ -66,12 +72,14 @@ if [ "$ALL" == true ] ; then
     zsh
   )
 
-  # install ruby
-  brew install rbenv 
-  LATEST_RUBY=$(rbenv install -l | sed -n '/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}[[:space:]]*$/ h;${g;p;}')
-  rbenv install $LATEST_RUBY 
-  rbenv rehash
-  rbenv global $LATEST_RUBY 
+  if [ "$SKIP_RUBY" == false ] ; then
+    # install ruby
+    brew install rbenv
+    LATEST_RUBY=$(rbenv install -l | sed -n '/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}[[:space:]]*$/ h;${g;p;}')
+    rbenv install $LATEST_RUBY
+    rbenv rehash
+    rbenv global $LATEST_RUBY
+  fi
 
   brew install vim
 
@@ -120,7 +128,7 @@ if [ "$ALL" == true ] ; then
 
   cd
 
-  cd .vim 
+  cd .vim
   ./install
   cd
 fi
@@ -150,6 +158,8 @@ if [ "$ALL" == true ] ; then
 
   # Show tab bar
   defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
+
+  sudo gem install cocoapods
 fi
 
 # =============================================
