@@ -1,17 +1,18 @@
 *
 
 !README.md
+!.zprezto
 !.vimrc
 !.vim
-!.gitignore
-!.gitignore_osx
-!.gitmodules
-!.gitaliases
-!.init
-!.init_zsh
-!.config
-!.hammerspoon
-!.zprezto
 !.screenrc
+!.init_zsh
+!.init
+!.hammerspoon
+!.gitmodules
+!.gitignore_osx
+!.gitignore
+!.githooks
+!.gitaliases
 !.dudzik.terminal
+!.config
 
