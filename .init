@@ -98,6 +98,7 @@ if [ "$ALL" == true ] ; then
   git config --global credential.helper osxkeychain
   git config --global core.excludesfile ~/.gitignore_osx
   git config --global include.path ~/.gitaliases
+  git config --global core.hooksPath ~/.githooks
   git config --global push.default current
   ssh-keygen -t rsa -b 4096 -C "$EMAIL"
   eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
