@@ -175,6 +175,7 @@ if [[ "$ALL" == true ]] || [[ "$GUI" == true ]]; then
     vlc
     iterm2
     fastlane
+    monitorcontrol
   )
 
   brew cask install ${guis[@]}
