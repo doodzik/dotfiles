@@ -59,6 +59,7 @@ if [ "$ALL" == true ] ; then
 
   cmds=(
     bash_join
+    fastlane
     fzf
     git
     git-lfs
@@ -179,11 +180,10 @@ if [[ "$ALL" == true ]] || [[ "$GUI" == true ]]; then
   guis=(
     vlc
     iterm2
-    fastlane
     monitorcontrol
   )
 
-  brew cask install ${guis[@]}
+  brew install --cask ${guis[@]}
 
   echo 'setup icloud && opening apps'
   echo 'trackpad tap to click & look up with 3 fingers'
