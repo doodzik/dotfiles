@@ -43,6 +43,7 @@ if [ -z "$EMAIL" ]; then
 fi
 
 cd $HOME
+git clone https://github.com/doodzik/dotfiles
 
 # ==============================================
 # homebrew
@@ -91,6 +92,13 @@ fi
 # ==============================================
 
 if [ "$ALL" == true ] ; then
+  ln -s ~/dotfiles/.githooks $HOME/.githooks
+  ln -s ~/dotfiles/.gitaliases $HOME/.gitaliases
+  ln -s ~/dotfiles/.gitignore_osx $HOME/.gitignore_osx
+  ln -s ~/dotfiles/.vimrc $HOME/.vimrc
+  ln -s ~/dotfiles/.vim $HOME/.vim
+  ln -s ~/dotfiles/.screenrc $HOME/.screenrc
+
   git config --global user.name "Frederik Dudzik"
   git config --global user.email "$EMAIL"
   git config --global push.default simple
@@ -116,10 +124,7 @@ if [ "$ALL" == true ] ; then
   read -p ''
 
   # setup repo for dotfiles
-  git init
-  git remote add origin https://github.com/doodzik/dotfiles.git
-  git fetch
-  git checkout -t origin/master
+  cd ~/dotfiles
   git submodule update --init --recursive --remote
 
   cd .zprezto
@@ -127,7 +132,7 @@ if [ "$ALL" == true ] ; then
 
   echo "GitHub: When you are asked for your username and password. Enter your username, then in the password prompt paste your Personal Access Token from your password manager."
 
-  cd
+  cd ..
 
   cd .vim
   ./install
@@ -260,7 +265,7 @@ fi
 # ==============================================
 
 if [ "$ALL" == true ] ; then
-  $HOME/.init_zsh
+  $HOME/dotfiles/.init_zsh
 fi
 
 # ==============================================
