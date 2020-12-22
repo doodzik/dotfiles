@@ -49,7 +49,7 @@ cd $HOME
 # ==============================================
 
 if [ "$ALL" == true ] ; then
-  command -v brew >/dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   brew tap doodzik/tap
   # for screen
