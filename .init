@@ -95,6 +95,7 @@ fi
 if [ "$ALL" == true ] ; then
   ln -s ~/dotfiles/.githooks $HOME/.githooks
   ln -s ~/dotfiles/.gitaliases $HOME/.gitaliases
+  ln -s ~/dotfiles/.gitmessage $HOME/.gitmessage
   ln -s ~/dotfiles/.gitignore_osx $HOME/.gitignore_osx
   ln -s ~/dotfiles/.vimrc $HOME/.vimrc
   ln -s ~/dotfiles/.vim $HOME/.vim
@@ -107,6 +108,7 @@ if [ "$ALL" == true ] ; then
   git config --global credential.helper osxkeychain
   git config --global core.excludesfile ~/.gitignore_osx
   git config --global include.path ~/.gitaliases
+  git config --global commit.template ~/.gitmessage
   git config --global core.hooksPath ~/.githooks
   git config --global push.default current
   ssh-keygen -t rsa -b 4096 -C "$EMAIL"
