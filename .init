@@ -51,6 +51,12 @@ git clone https://github.com/doodzik/dotfiles
 
 if [ "$ALL" == true ] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  
+  if [ "$(arch)" = "arm64" ]; then
+    eval $(/opt/homebrew/bin/brew shellenv);
+  else
+    eval $(/usr/local/bin/brew shellenv);
+  fi
 
   brew tap doodzik/tap
   # for screen
