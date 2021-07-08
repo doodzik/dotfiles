@@ -59,9 +59,8 @@ if [ "$ALL" == true ] ; then
   fi
 
   brew tap doodzik/tap
-  # for screen
-  brew tap homebrew/dupes
-  brew tap caskroom/cask
+  brew tap homebrew/dupes # for screen
+  brew tap homebrew/cask
 
   cmds=(
     bash_join
