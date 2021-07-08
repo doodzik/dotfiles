@@ -11,5 +11,6 @@ for rcfile in "${ZDOTDIR:-$HOME}"/dotfiles/.zprezto/runcoms/^README.md(.N); do
 done
 
 # set brew zsh as default shell
-echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/zsh
+ZSHPATH=$(which zsh)
+echo "$ZSHPATH" | sudo tee -a /etc/shells
+chsh -s "$ZSHPATH"
